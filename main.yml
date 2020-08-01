@@ -1,0 +1,23 @@
+---
+- name: main
+  hosts: localhost
+  vars_files:
+    - ~/tmp/AnsibleFundations/.credentials/keycred
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ USER }}"
+    AWS_SECRET_ACCESS_KEY: "{{ PASSWORD }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    instance_type: "{{ INSTANCE_TYPE | default( 't2.micro' ) }}"
+    instance_image: "{{ INSTANCE_IMAGE | default( 'ami-0f5457ab1b6214674' ) }}"
+  tasks:
+    - name: CREATE
+      import_role:
+        name: create
+      when: "'create' in status"
+
+    - name: DESTROY
+      import_role:
+        name: destroy
+      when: "'destroy' in status"
+      
