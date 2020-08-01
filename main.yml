@@ -2,7 +2,7 @@
 - name: main
   hosts: localhost
   vars_files:
-    - ~/tmp/AnsibleFundations/.credentials/keycred
+    - ./.credentials/keycred
   environment:
     AWS_ACCESS_KEY_ID: "{{ USER }}"
     AWS_SECRET_ACCESS_KEY: "{{ PASSWORD }}"
