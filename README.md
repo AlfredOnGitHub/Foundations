@@ -2,10 +2,15 @@ Fundations
 
 This project is made for fun, just to push harder.
 
-We are using Ansible to do quite a few things with AWS like create specific instances and other stuff.
+We are using Ansible to do quite a few things with AWS ans Jenkins, like create specific instances to run jenkins on it.
 
 An AWS provisioning Ansible role.
 `ansible-playbook main.yml -e "status="
+
+`ansible-playbook run.yml`
+
+AWS folder hold everything related with AWS.
+Instances hold everything related with the instances.
 
 Required values for "status": create or delete.
 

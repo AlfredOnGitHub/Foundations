@@ -1,0 +1,36 @@
+---
+- name: main
+  hosts: yourpublicip
+  become: true
+  tasks:
+    - name: Download Jenkins Repository
+      yum_repository: 
+        name: jenkins.repo
+        baseurl: http://pkg.jenkins.io/redhat-stable
+        gpgcheck: 1
+        description: Jenkins-stable
+    
+    - name: Import Key to RPM
+      rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+    - name: Install Jenkins
+      yum:
+        name: 
+          - jenkins
+          - java-1.8.0-openjdk-devel
+        state: latest
+
+    - name: Run Jenkins
+      service:
+        name: jenkins
+        state: started
+    
+    - name: Cat initialAdminPassword
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: passwd
+
+    - name: Password
+      debug:
+        msg: 'Password: {{ passwd.stdout }}'
