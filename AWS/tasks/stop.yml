@@ -1,0 +1,7 @@
+---
+- name: Stop Instances
+  ec2_instance:
+    state: stopped
+    filters:
+      instance-state-name: running
+    region: us-east-2

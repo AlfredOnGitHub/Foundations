@@ -11,13 +11,26 @@
     instance_type: "{{ INSTANCE_TYPE | default( 't2.micro' ) }}"
     instance_image: "{{ INSTANCE_IMAGE | default( 'ami-0f5457ab1b6214674' ) }}"
   tasks:
-    - name: CREATE
+    - name: -- Firelink --
       import_role:
-        name: create
+        name: Firelink
+        tasks_from: create
       when: "'create' in status"
 
-    - name: DESTROY
+    - name: -- Firelink --
       import_role:
-        name: destroy
+        name: Firelink
+        tasks_from: destroy
       when: "'destroy' in status"
-      
+
+    - name: -- Firelink --
+      import_role:
+        name: Firelink
+        tasks_from: start
+      when: "'start' in status"
+
+    - name: -- Firelink --
+      import_role:
+        name: Firelink
+        tasks_from: stop
+      when: "'stop' in status"
