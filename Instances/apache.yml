@@ -1,0 +1,23 @@
+---
+- name: Seting Up and Running Httpd
+  hosts: instances
+  become: true
+  tasks:
+    - name: Import role
+      import_role:
+        name: Firelink
+
+    - name: Install httpd
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Setting httpd.conf file
+      template:
+        src: ./httpd.conf
+        dest: /etc/httpd/conf//httpd.conf
+
+    - name: Run httpd
+      service:
+        name: httpd
+        state: started

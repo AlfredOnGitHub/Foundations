@@ -1,6 +1,6 @@
 ---
 - name: main
-  hosts: yourpublicip
+  hosts: instances
   become: true
   tasks:
     - name: Download Jenkins Repository
@@ -26,11 +26,3 @@
       service:
         name: jenkins
         state: started
-    
-    - name: Cat initialAdminPassword
-      command: cat /var/lib/jenkins/secrets/initialAdminPassword
-      register: passwd
-
-    - name: Password
-      debug:
-        msg: 'Password: {{ passwd.stdout }}'
