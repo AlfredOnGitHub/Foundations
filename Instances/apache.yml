@@ -3,10 +3,6 @@
   hosts: instances
   become: true
   tasks:
-    - name: Import role
-      import_role:
-        name: Firelink
-
     - name: Install httpd
       dnf:
         name: httpd
